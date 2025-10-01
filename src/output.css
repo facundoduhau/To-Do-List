@@ -170,6 +170,9 @@
   }
 }
 @layer utilities {
+  .contents {
+    display: contents;
+  }
   .flex {
     display: flex;
   }

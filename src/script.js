@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         saveTasks();
 
+        renderTasks(newTask);
+
         userInput.value = "";
 
         console.log(currentList);
@@ -54,7 +56,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     // The solution is to wrap everything inside a document event, listening for the DOM loading
 
-    function renderTasks(task){
-        console.log(task);
-    }
+function renderTasks(task){
+    console.log(task);
+
+    const domListElement = document.createElement('li');
+    domListElement.setAttribute('data-id', task.id);
+    domListElement.className = 'h-1/10 flex items-center justify-around';
+
+    domListElement.innerHTML = `
+        <div class="bg-gray-600 h-full rounded-2xl w-6/8 text-center justify-center items-center flex">
+            ${task.text}
+        </div>
+        <button class="delete-btn w-1/6 rounded-2xl bg-red-500 h-full cursor-pointer">
+            Clear
+        </button>
+    `
+    taskList.appendChild(domListElement)
+}
 })
