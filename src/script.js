@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const addTaskButton = document.getElementById('add-item')
     const userInput = document.getElementById('input-item')
     
-    let currentList = JSON.parse(localStorage.getItem('list')) || [];
+    var currentList = JSON.parse(localStorage.getItem('list')) || [];
     
     currentList.forEach(task => {
         renderTasks(task)
@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
             return;
         };
         
+        if(currentList.length >= 6){
+            alert("Try completing some tasks before adding more to your list")
+            return
+        }
+
         const newTask ={
             id: Date.now(),
             text: userText,
@@ -25,7 +30,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         saveTasks();
         renderTasks(newTask);
         userInput.value = "";
-        console.log(currentList);
     })
     
     function saveTasks(){
@@ -33,7 +37,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
     
     function renderTasks(task){
-        console.log(task);
         
         const domListElement = document.createElement('li');
         domListElement.setAttribute('data-id', task.id);
@@ -43,13 +46,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
             <div class="bg-gray-600 h-full rounded-2xl w-6/8 text-center justify-center items-center flex">
                 ${task.text}
             </div>
-            <button class="delete-btn w-1/6 rounded-2xl bg-red-500 h-full cursor-pointer">
+            <button id="clearButton" class="w-1/6 rounded-2xl bg-red-500 h-full cursor-pointer">
                 Clear
             </button>
         `
         
-        const deleteButton = domListElement.querySelector('.delete-btn');
+        const deleteButton = domListElement.querySelector('#clearButton');
         deleteButton.addEventListener("click", ()=>{
+
             const newTaskList = []
             
             currentList.forEach(thisTask => {
