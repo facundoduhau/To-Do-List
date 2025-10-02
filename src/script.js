@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         
         const deleteButton = domListElement.querySelector('.delete-btn');
         deleteButton.addEventListener("click", ()=>{
-            const toBeRemoved = task.id;
             const newTaskList = []
             
             currentList.forEach(thisTask => {
